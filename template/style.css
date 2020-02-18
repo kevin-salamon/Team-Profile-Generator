@@ -1,0 +1,38 @@
+.profile-box {
+    height: 300px;
+    width: 250px;
+    position: relative;
+    left: 20%;
+}
+
+.profile-header {
+    height: 35%;
+    width: 100%;
+    background-color: blue;
+    color: white;
+    font-weight: bold;
+    font-family: 'Krona One', sans-serif;
+    font-size: 22px;
+}
+
+.header-section {
+    height: 45%;
+    margin: 5px;
+    padding: 10px;
+}
+
+.profile-body {
+    background-color: lightgray;
+    height: 64%;
+    padding: 5px;
+}
+
+.profile-content {
+    width: 90%;
+    height: 32%;
+    background-color: white;
+    border: 1px solid lightgray;
+    padding: 10px;
+    margin: 1px;
+    margin-left: 10px;
+}
