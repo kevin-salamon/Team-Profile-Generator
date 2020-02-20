@@ -1,9 +1,28 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
-const Employee = require("./lib/employee.js");
-const Manager = require("./lib/manager.js");
-const Engineer = require("./lib/engineer.js");
-const Intern = require("./lib/intern.js");
+const Employee = require("./lib/employee");
+const Manager = require("./lib/manager");
+const Engineer = require("./lib/engineer");
+const Intern = require("./lib/intern");
+var externalCounter = 1;
+
+var htmlHeader = `<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Profile Generator</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Krona+One&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="jumbotron" style="color:white; background-color:red;">
+        <h1 class="display-4 text-center" style="font-weight:bolder;">My Team</h1>
+    </div>`;
+
+var htmlFooter = `</body>
+</html>`;
 
 function startProfile() {
     console.log("-----------------------");
@@ -16,7 +35,7 @@ function startProfile() {
             choices: ["Manager", "Engineer", "Intern"]
         }
     ]).then(function(response) {
-        fs.writeFileSync("log.txt", `Start \n`, function(error) {
+        fs.writeFileSync("output/output.html", htmlHeader + `\n`, function(error) {
             if (error) {
                 throw error;
             } else {
@@ -44,9 +63,15 @@ function buildManager() {
         },
         {
             type:"input",
-            message: "What is your office number?",
+            message: "What is the employee's office number?",
             name: "office",
             default: "1"
+        },
+        {
+            type:"input",
+            message: "What is the employee's email?",
+            name: "email",
+            default: "theksalamon@gmail.com"
         },
         {
             type: "list",
@@ -55,13 +80,19 @@ function buildManager() {
             choices: ["Manager", "Engineer", "Intern", "none"]
         }
     ]).then(function(response) {
-        fs.appendFileSync("log.txt", `Manager \n`, function(error) {
+
+        let id = externalCounter;
+        let output = new Manager(response.name, id, response.email, response.office).addProfile();
+
+        fs.appendFileSync("output/output.html", output + `\n`, function(error) {
             if (error) {
                 throw error;
             } else {
                 console.log("manager added");
             }
         });
+
+        externalCounter++;
 
         if (response.role === "Manager") {
             buildManager();
@@ -90,19 +121,31 @@ function buildEngineer() {
             default: "kevin-salamon"
         },
         {
+            type:"input",
+            message: "What is the employee's email?",
+            name: "email",
+            default: "theksalamon@gmail.com"
+        },
+        {
             type: "list",
             message: "What employee would you like to add next?",
             name: "role",
             choices: ["Manager", "Engineer", "Intern", "none"]
         }
     ]).then(function(response) {
-        fs.appendFileSync("log.txt", `Engineer \n`, function(error) {
+
+        let id = externalCounter;
+        let output = new Engineer(response.name, id, response.email, response.github).addProfile();
+
+        fs.appendFileSync("output/output.html", output + `\n`, function(error) {
             if (error) {
                 throw error;
             } else {
                 console.log("engineer added");
             }
         });
+
+        externalCounter++;
 
         if (response.role === "Manager") {
             buildManager();
@@ -131,19 +174,31 @@ function buildIntern() {
             default: "PSU"
         },
         {
+            type:"input",
+            message: "What is the employee's email?",
+            name: "email",
+            default: "theksalamon@gmail.com"
+        },
+        {
             type: "list",
             message: "What employee would you like to add next?",
             name: "role",
             choices: ["Manager", "Engineer", "Intern", "none"]
         }
     ]).then(function(response) {
-        fs.appendFileSync("log.txt", `Intern \n`, function(error) {
+
+        let id = externalCounter;
+        let output = new Intern(response.name, id, response.email, response.school).addProfile();
+
+        fs.appendFileSync("output/output.html", output + `\n`, function(error) {
             if (error) {
                 throw error;
             } else {
                 console.log("intern added");
             }
         });
+
+        externalCounter++;
 
         if (response.role === "Manager") {
             buildManager();
@@ -158,7 +213,8 @@ function buildIntern() {
 }
 
 function endProfile() {
-    fs.appendFileSync("log.txt", `End \n`, function(error) {
+    console.log("File Created!");
+    fs.appendFileSync("output/output.html", htmlFooter, function(error) {
         if (error) {
             throw error;
         } else {
@@ -169,32 +225,3 @@ function endProfile() {
 
 
 startProfile();
-
-
-// BUILDING BLOCKS
-// if (inputCount === 0) {
-//     fs.writeFileSync("log.txt", `Starting Piece \n`, function(error) {
-//         if (error) {
-//         throw error;
-//         } else {
-//             console.log("added badge. program started");
-//         }
-//     });
-//     inputCount ++;
-// } else if (teamComplete === true && teamArray.includes("Manager")) {
-//     fs.appendFileSync("log.txt", `End Piece \n`, function(error) {
-//         if (error) {
-//         throw error;
-//         } else {
-//             console.log("added badge. program finished");
-//         }
-//     });
-// } else {
-//     fs.appendFileSync("log.txt", `Middle Piece \n`, function(error) {
-//         if (error) {
-//         throw error;
-//         } else {
-//             console.log("added badge.");
-//         }
-//     });
-// }
