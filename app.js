@@ -27,7 +27,8 @@ var htmlFooter = `</body>
 
 function startProfile() {
     console.log("-----------------------");
-    console.log("Please enter the role for a new employee.");
+    console.log("We will now begin building profiles for your software team.")
+    console.log("TO start, please enter the role for a new employee.");
     inquirer.prompt([
         {
             type: "list",
@@ -58,19 +59,19 @@ function buildManager() {
     inquirer.prompt([
         {
             type: "input",
-            message: "Please enter the name of the employee.",
+            message: "Please enter the name of the Manager.",
             name: "name",
             default: "Kevin"
         },
         {
             type:"input",
-            message: "What is the employee's office number?",
+            message: "What is the manager's office number?",
             name: "office",
             default: "1"
         },
         {
             type:"input",
-            message: "What is the employee's email?",
+            message: "What is the manager's email?",
             name: "email",
             default: "theksalamon@gmail.com"
         },
@@ -228,6 +229,10 @@ function endProfile() {
             console.log("program ended");
         }
     });
+
+    if (hasManager === true) {
+        console.log("File written to output! Application closing...");
+    }
 
 }
 
