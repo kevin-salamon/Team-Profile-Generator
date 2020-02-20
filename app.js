@@ -5,6 +5,7 @@ const Manager = require("./lib/manager");
 const Engineer = require("./lib/engineer");
 const Intern = require("./lib/intern");
 var externalCounter = 1;
+var hasManager = false;
 
 var htmlHeader = `<!DOCTYPE html>
 <html>
@@ -81,6 +82,7 @@ function buildManager() {
         }
     ]).then(function(response) {
 
+        hasManager = true;
         let id = externalCounter;
         let output = new Manager(response.name, id, response.email, response.office).addProfile();
 
@@ -213,7 +215,12 @@ function buildIntern() {
 }
 
 function endProfile() {
-    console.log("File Created!");
+
+    if (hasManager === false) {
+        console.log("Sorry, each team must have at least one manager. Please include details for a manager.");
+        buildManager();
+    } 
+
     fs.appendFileSync("output/output.html", htmlFooter, function(error) {
         if (error) {
             throw error;
@@ -221,6 +228,7 @@ function endProfile() {
             console.log("program ended");
         }
     });
+
 }
 
 
