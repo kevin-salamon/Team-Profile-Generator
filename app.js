@@ -15,6 +15,8 @@ var htmlHeader = `<!DOCTYPE html>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Krona+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lobster&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Cinzel&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -28,7 +30,7 @@ var htmlFooter = `</body>
 function startProfile() {
     console.log("-----------------------");
     console.log("We will now begin building profiles for your software team.")
-    console.log("TO start, please enter the role for a new employee.");
+    console.log("To start, please enter the role for a new employee.");
     inquirer.prompt([
         {
             type: "list",

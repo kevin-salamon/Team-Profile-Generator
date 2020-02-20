@@ -1,8 +1,17 @@
 .header-card {
-    background-color: blue;
     color: white;
+    padding: 5px;
+    margin: 3px;
+    font-family: 'Lobster', cursive;
+    text-decoration: underline;
+    text-align: center;
+    text-shadow: 1px 1px black;
 }
 
 .header-body {
-    background-color: lightgray;
+    background-color: white;
+    border: 1px solid black;
+    font-family: 'Cinzel', serif;
 }
+
+
